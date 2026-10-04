@@ -1,9 +1,11 @@
 {
   "name": "beaches",
   "private": true,
+  "type": "module",
   "scripts": {
     "preview": "wrangler preview",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "test": "node --test test/contact.test.mjs"
   },
   "devDependencies": {
     "wrangler": "^4.135.0"

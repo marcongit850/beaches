@@ -115,12 +115,10 @@ summary:focus-visible {
 
 .logo-link {
   display: block;
-  flex: 0 1 400px;
-  width: 400px;
+  flex: 0 1 340px;
+  width: 340px;
   max-width: 100%;
-  aspect-ratio: 400 / 144;
-  height: auto;
-  overflow: hidden;
+  aspect-ratio: 1672 / 941;
   line-height: 0;
 }
 
@@ -128,8 +126,7 @@ summary:focus-visible {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center 38%;
+  object-fit: contain;
 }
 
 .site-nav {

@@ -1,0 +1,12 @@
+{
+  // Walton County beach access site. Worker name is beaches.
+  // Static HTML only. Do not add a custom domain in this file. DNS stays unset on purpose.
+  "name": "beaches",
+  "compatibility_date": "2026-10-04",
+  "assets": {
+    "directory": ".",
+    "html_handling": "auto-trailing-slash"
+  },
+  // Required by `npx wrangler preview`. Keep this empty. Do not put secrets here.
+  "previews": {}
+}

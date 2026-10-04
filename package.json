@@ -1,0 +1,11 @@
+{
+  "name": "beaches",
+  "private": true,
+  "scripts": {
+    "preview": "wrangler preview",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.135.0"
+  }
+}

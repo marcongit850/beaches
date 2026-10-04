@@ -1,6 +1,6 @@
 # Walton County Beach Access
 
-A static public record of how Walton County beach access got this way. Pages: Home, Beach Access Today, Timeline, Customary Use, Lawsuits, Beach Nourishment, Documents, and Contact. The old Rules address still opens Beach Access Today.
+A static public record of how Walton County beach access got this way. Pages in the navigation: Home, Beach Access Today, Timeline, Lawsuits, Beach Nourishment, Documents, and Contact. The Customary Use page remains at customary-use.html and is not linked. The old Rules address still opens Beach Access Today.
 
 Open `index.html` in a browser. There is no database and no login.
 
@@ -17,4 +17,4 @@ Set these Worker secrets. Do not commit them.
 
 Optional `CONTACT_FROM` is the verified from address when Resend requires one. If it is unset, the Worker uses Resend's onboarding sender, `onboarding@resend.dev`. That sender can deliver only to the Resend account address until a domain is verified.
 
-If `RESEND_API_KEY` or `CONTACT_EMAIL` is missing, the form says the message could not be sent.
+If `RESEND_API_KEY` or `CONTACT_EMAIL` is missing, the form says the message could not be sent. If those secrets are set and Resend rejects the onboarding sender, the form says to set `CONTACT_FROM`.

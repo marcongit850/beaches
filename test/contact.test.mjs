@@ -98,3 +98,70 @@ test("a Resend failure does not say the message was sent", async () => {
   assert.equal(data.ok, false);
   assert.equal(data.error, "The message could not be sent.");
 });
+
+test("an onboarding-sender rejection says to set CONTACT_FROM", async () => {
+  const response = await handleContact(
+    post({
+      name: "Ada",
+      email: "ada@example.com",
+      message: "A note.",
+    }),
+    {
+      RESEND_API_KEY: "re_test_key",
+      CONTACT_EMAIL: "inbox@example.com",
+    },
+    async () => new Response(JSON.stringify({
+      message: "You can only send testing emails to your own email address (owner@resend-account.example). To send emails to other recipients, please verify a domain.",
+    }), { status: 403 })
+  );
+  assert.equal(response.status, 502);
+  const data = await response.json();
+  assert.equal(data.ok, false);
+  assert.equal(
+    data.error,
+    "The message could not be sent. Set CONTACT_FROM to a verified from address. The onboarding sender can deliver only to the Resend account address."
+  );
+  assert.equal(JSON.stringify(data).includes("owner@resend-account.example"), false);
+});
+
+test("a verified from address keeps the generic error when Resend rejects", async () => {
+  const response = await handleContact(
+    post({
+      name: "Ada",
+      email: "ada@example.com",
+      message: "A note.",
+    }),
+    {
+      RESEND_API_KEY: "re_test_key",
+      CONTACT_EMAIL: "inbox@example.com",
+      CONTACT_FROM: "Records <records@example.com>",
+    },
+    async () => new Response(JSON.stringify({
+      message: "Please verify a domain before sending.",
+    }), { status: 403 })
+  );
+  assert.equal(response.status, 502);
+  const data = await response.json();
+  assert.equal(data.ok, false);
+  assert.equal(data.error, "The message could not be sent.");
+});
+
+test("a verified from address still sends when Resend accepts it", async () => {
+  const response = await handleContact(
+    post({
+      name: "Ada",
+      email: "ada@example.com",
+      message: "A note.",
+    }),
+    {
+      RESEND_API_KEY: "re_test_key",
+      CONTACT_EMAIL: "inbox@example.com",
+      CONTACT_FROM: "Records <records@example.com>",
+    },
+    async () => new Response(JSON.stringify({ id: "email_789" }), { status: 200 })
+  );
+  assert.equal(response.status, 200);
+  const data = await response.json();
+  assert.equal(data.ok, true);
+  assert.equal(data.message, "The message was sent.");
+});

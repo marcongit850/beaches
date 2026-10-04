@@ -12,6 +12,7 @@ const MAX_PER_WINDOW = 5;
 const RESEND_URL = "https://api.resend.com/emails";
 const ONBOARDING_FROM = "Walton County Beach Access <onboarding@resend.dev>";
 const NOT_SENT = "The message could not be sent.";
+const FROM_REQUIRED = "The message could not be sent. Set CONTACT_FROM to a verified from address. The onboarding sender can deliver only to the Resend account address.";
 const SENT = "The message was sent.";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const recentHits = new Map();
@@ -93,10 +94,22 @@ function contactEmail(env) {
   return to;
 }
 
+function contactFrom(env) {
+  return typeof env.CONTACT_FROM === "string" ? env.CONTACT_FROM.trim() : "";
+}
+
 function fromAddress(env) {
-  const from = typeof env.CONTACT_FROM === "string" ? env.CONTACT_FROM.trim() : "";
+  const from = contactFrom(env);
   if (from) return from;
   return ONBOARDING_FROM;
+}
+
+function onboardingSenderRejected(result) {
+  if (!result || typeof result !== "object") return false;
+  const message = typeof result.message === "string" ? result.message.toLowerCase() : "";
+  return message.includes("verify a domain")
+    || message.includes("testing email")
+    || message.includes("onboarding@resend.dev");
 }
 
 export function parseContact(data) {
@@ -182,6 +195,11 @@ export async function handleContact(request, env = {}, fetchImpl = fetch) {
 
   const delivered = upstream.ok && result && typeof result.id === "string" && result.id.trim().length > 0;
   if (!delivered) {
+    // Secrets are present, so this is a Resend rejection, not a missing key.
+    // The onboarding from address is only used when CONTACT_FROM is unset.
+    if (!contactFrom(env) && onboardingSenderRejected(result)) {
+      return reply({ ok: false, error: FROM_REQUIRED }, 502);
+    }
     return reply({ ok: false, error: NOT_SENT }, 502);
   }
 

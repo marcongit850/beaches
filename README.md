@@ -1,6 +1,6 @@
 # Walton County Beach Access
 
-A static public record of how Walton County beach access got this way. Pages: Home, Timeline, Rules, Documents, and Contact.
+A static public record of how Walton County beach access got this way. Pages: Home, Beach Access Today, Timeline, Customary Use, Lawsuits, Beach Nourishment, Documents, and Contact. The old Rules address still opens Beach Access Today.
 
 Open `index.html` in a browser. There is no database and no login.
 

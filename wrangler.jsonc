@@ -1,12 +1,15 @@
 {
   // Walton County beach access site. Worker name is beaches.
-  // Do not add a custom domain in this file. DNS stays unset on purpose.
   // Contact mail uses Worker secrets RESEND_API_KEY and CONTACT_EMAIL.
   // Optional CONTACT_FROM is the verified from address when Resend requires one.
   // Do not put those values in this file.
   "name": "beaches",
   "main": "worker.js",
   "compatibility_date": "2026-10-04",
+  "routes": [
+    { "pattern": "whereismybeach.com", "custom_domain": true },
+    { "pattern": "www.whereismybeach.com", "custom_domain": true }
+  ],
   "assets": {
     "directory": ".",
     "binding": "ASSETS",

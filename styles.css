@@ -298,15 +298,6 @@ li { margin: 0.28rem 0; }
 
 .btn-ghost:hover { background: var(--navy); color: #f7f4ee; }
 
-.photo-credit {
-  margin: 0;
-  padding: 0.4rem 1.25rem 0.7rem;
-  max-width: var(--max);
-  margin-inline: auto;
-  color: var(--muted);
-  font-family: var(--sans);
-  font-size: 0.78rem;
-}
 
 .band { padding: 4rem 0; }
 
@@ -452,33 +443,20 @@ li { margin: 0.28rem 0; }
   padding-right: 0.6rem;
 }
 
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.9rem;
-  margin-top: 1.4rem;
+.faq details {
+  border-top: 1px solid var(--line);
+  padding: 0.8rem 0;
 }
 
-.answer {
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-top: 3px solid var(--teal);
-  border-radius: 8px;
-  padding: 1.1rem 1.1rem 1.15rem;
-  display: flex;
-  flex-direction: column;
-}
+.faq details:last-child { border-bottom: 1px solid var(--line); }
 
-.answer h3 { margin: 0 0 0.45rem; font-size: 1.18rem; }
-
-.answer p { margin: 0; flex: 1; }
-
-.answer a {
-  margin-top: 0.9rem;
-  font-family: var(--sans);
+.faq summary {
+  cursor: pointer;
   font-weight: 600;
-  font-size: 0.95rem;
+  color: var(--navy);
 }
+
+.faq details p { margin: 0.55rem 0 0; }
 
 .map-figure { margin: 1.2rem 0 0.4rem; }
 
@@ -486,8 +464,6 @@ li { margin: 0.28rem 0; }
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 8px;
-  border: 1px solid var(--line);
   background: #fff;
 }
 
@@ -645,14 +621,6 @@ footer nav {
   font-family: var(--sans);
 }
 
-footer .credits {
-  margin: 0.85rem 0 0;
-  font-family: var(--sans);
-  font-size: 0.78rem;
-  color: #b7c3bb;
-}
-
-footer .credits a { color: #d7e2da; }
 
 a.contact-button {
   display: inline-flex;
@@ -770,7 +738,7 @@ a.contact-button[aria-current="page"] {
 }
 
 @media (max-width: 900px) {
-  .diagrams, .cards { grid-template-columns: 1fr; }
+  .diagrams { grid-template-columns: 1fr; }
   .cross h3 { min-height: 0; }
   .tcard { grid-template-columns: 1fr; gap: 0.35rem; }
   .tcard-date { display: flex; align-items: baseline; gap: 0.6rem; }

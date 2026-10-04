@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact | Walton County Beach Access</title>
+  <meta name="description" content="Contact the Walton County beach access record with updates, ideas, questions, or news.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo-link" href="index.html">
+        <img src="assets/understanding-logo.png" width="1254" height="1254" alt="Understanding Walton County Beach Access">
+      </a>
+      <nav class="site-nav" aria-label="Pages">
+        <a href="index.html">Home</a>
+        <a href="timeline.html">Timeline</a>
+        <a href="rules.html">Rules</a>
+        <a href="documents.html">Documents</a>
+      </nav>
+    </div>
+  </header>
+  <main id="content" class="wrap">
+    <h1>Contact</h1>
+    <p>Contact us if you know something this record does not. Contact us if you have updates, ideas, questions, or news to report.</p>
+    <form class="contact-form" action="/api/contact" method="post">
+      <label for="contact-name">Name</label>
+      <input id="contact-name" name="name" type="text" autocomplete="name" required maxlength="200">
+      <label for="contact-email">Email</label>
+      <input id="contact-email" name="email" type="email" autocomplete="email" required maxlength="200">
+      <label for="contact-message">Message</label>
+      <textarea id="contact-message" name="message" required maxlength="5000" rows="8"></textarea>
+      <button type="submit">Send message</button>
+      <p id="contact-status" class="contact-status" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+  <footer>
+    <div class="footer-inner">
+      <p>Walton County Beach Access. A public record of the history, the votes, and the cases.</p>
+      <div class="footer-row">
+        <nav aria-label="Footer">
+          <a href="index.html">Home</a><span class="pipe" aria-hidden="true"> | </span><a href="timeline.html">Timeline</a><span class="pipe" aria-hidden="true"> | </span><a href="rules.html">Rules</a><span class="pipe" aria-hidden="true"> | </span><a href="documents.html">Documents</a>
+        </nav>
+        <a class="contact-button" href="contact.html" aria-current="page">Contact</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const form = document.querySelector(".contact-form");
+    const status = document.querySelector("#contact-status");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const button = form.querySelector("button");
+      button.disabled = true;
+      status.textContent = "Sending.";
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            accept: "application/json"
+          },
+          body: JSON.stringify({
+            name: form.name.value,
+            email: form.email.value,
+            message: form.message.value
+          })
+        });
+        let data = null;
+        try {
+          data = await response.json();
+        } catch (error) {
+          data = null;
+        }
+        if (data && data.ok) {
+          status.textContent = "The message was sent.";
+          form.reset();
+        } else {
+          status.textContent = (data && data.error) || "The message could not be sent.";
+        }
+      } catch (error) {
+        status.textContent = "The message could not be sent.";
+      }
+      button.disabled = false;
+    });
+  </script>
+</body>
+</html>

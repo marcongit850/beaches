@@ -115,9 +115,11 @@ summary:focus-visible {
 
 .logo-link {
   display: block;
-  flex: 0 0 auto;
-  width: 320px;
-  height: 83px;
+  flex: 0 1 400px;
+  width: 400px;
+  max-width: 100%;
+  aspect-ratio: 400 / 144;
+  height: auto;
   overflow: hidden;
   line-height: 0;
 }
@@ -127,7 +129,7 @@ summary:focus-visible {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 46%;
+  object-position: center 38%;
 }
 
 .site-nav {
@@ -746,7 +748,6 @@ a.contact-button[aria-current="page"] {
 }
 
 @media (max-width: 700px) {
-  .logo-link { width: 248px; height: 64px; }
   .hero { min-height: 86vh; }
   .hero-inner, .page-hero-inner { padding: 3.2rem 1rem 2.2rem; }
   .band { padding: 2.6rem 0; }

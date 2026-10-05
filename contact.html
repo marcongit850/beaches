@@ -9,6 +9,34 @@
   <meta property="og:title" content="Contact | Walton County Beach Access">
   <meta property="og:description" content="Questions about Walton County beach access, beach rules, and whether a beach is public or private. Send updates, ideas, or news.">
   <meta property="og:url" content="https://whereisyourbeach.com/contact.html">
+  <meta property="og:image" content="https://whereisyourbeach.com/assets/header-logo.png">
+  <meta property="og:image:alt" content="Where Is Your Beach. Understanding Walton County Beach Access">
+  <meta property="og:image:width" content="1672">
+  <meta property="og:image:height" content="941">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://whereisyourbeach.com/#website",
+        "name": "Where Is Your Beach",
+        "url": "https://whereisyourbeach.com/"
+      },
+      {
+        "@type": "WebPage",
+        "url": "https://whereisyourbeach.com/contact.html",
+        "name": "Contact | Walton County Beach Access",
+        "description": "Questions about Walton County beach access, beach rules, and whether a beach is public or private. Send updates, ideas, or news.",
+        "isPartOf": { "@id": "https://whereisyourbeach.com/#website" },
+        "primaryImageOfPage": {
+          "@type": "ImageObject",
+          "url": "https://whereisyourbeach.com/assets/header-logo.png"
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="icon" href="assets/favicon.png" type="image/png">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -36,7 +64,9 @@
     </div>
   </section>
   <main id="content" class="wrap">
+    <h2>Updates, ideas, questions, or news</h2>
     <p>Contact us if you know something this record does not. Contact us if you have updates, ideas, questions, or news to report.</p>
+    <p>Questions about <a href="beach-access-today.html">beach rules</a>, <a href="index.html">public beach and private beach</a>, or the <a href="timeline.html">beach access timeline</a>.</p>
     <form class="contact-form" action="/api/contact" method="post">
       <label for="contact-name">Name</label>
       <input id="contact-name" name="name" type="text" autocomplete="name" required maxlength="200">

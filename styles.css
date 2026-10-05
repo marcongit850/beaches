@@ -257,7 +257,7 @@ li { margin: 0.28rem 0; }
 .hero h1 {
   max-width: 16em;
   color: #f7f4ee;
-  font-size: clamp(2.05rem, 4.4vw, 3.35rem);
+  font-size: clamp(1.45rem, 2.6vw, 2.1rem);
   line-height: 1.18;
   font-weight: 600;
   text-wrap: balance;

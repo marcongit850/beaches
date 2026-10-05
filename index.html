@@ -30,11 +30,72 @@
     <section class="hero" aria-labelledby="purpose">
       <img class="hero-photo" src="assets/photos/gulf-shoreline.jpg" width="1800" height="1200" alt="Dune grass beside a Gulf shoreline">
       <div class="hero-inner">
-        <h1 id="purpose">Public beach, private beach, wet sand, customary use, settlements, and lawsuits. Here is how it all fits together.</h1>
-        <div class="hero-actions">
-          <a class="btn" href="beach-access-today.html">Beach Access Today</a>
-          <a class="btn btn-line" href="timeline.html">See the Timeline</a>
+        <div class="hero-copy">
+          <h1 id="purpose">Public beach, private beach, wet sand, customary use, settlements, and lawsuits. Here is how it all fits together.</h1>
+          <div class="hero-actions">
+            <a class="btn" href="beach-access-today.html">Beach Access Today</a>
+            <a class="btn btn-line" href="timeline.html">See the Timeline</a>
+          </div>
         </div>
+        <figure class="hero-video" aria-label="Where Is Your Beach">
+          <div class="hero-video-frame">
+            <video id="hero-video" controls playsinline preload="none" poster="assets/videos/whereismybeach-hero-poster.jpg" width="540" height="960">
+              <source src="assets/videos/whereismybeach-hero.mp4" type="video/mp4">
+            </video>
+            <img class="hero-video-poster" src="assets/videos/whereismybeach-hero-poster.jpg" alt="" width="540" height="960">
+            <button type="button" class="hero-video-control" hidden aria-pressed="false" aria-label="Play video">
+              <svg class="hero-video-icon hero-video-icon-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M9 6.5v11l9-5.5-9-5.5z"/></svg>
+              <svg class="hero-video-icon hero-video-icon-stop" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path fill="currentColor" d="M7 7h10v10H7z"/></svg>
+            </button>
+          </div>
+          <script>
+            !function () {
+              var root = document.querySelector(".hero-video");
+              if (!root) return;
+              var video = root.querySelector("video");
+              var button = root.querySelector(".hero-video-control");
+              var playIcon = root.querySelector(".hero-video-icon-play");
+              var stopIcon = root.querySelector(".hero-video-icon-stop");
+              if (!video || !button || !playIcon || !stopIcon) return;
+              var token = 0;
+              function setPlaying(on) {
+                button.setAttribute("aria-pressed", on ? "true" : "false");
+                button.setAttribute("aria-label", on ? "Stop video" : "Play video");
+                playIcon.hidden = on;
+                stopIcon.hidden = !on;
+              }
+              function showPoster() {
+                video.pause();
+                video.muted = true;
+                try { video.currentTime = 0; } catch (err) {}
+                root.classList.remove("is-playing");
+                setPlaying(false);
+              }
+              function start() {
+                var mine = ++token;
+                video.muted = false;
+                setPlaying(true);
+                var pending = video.play();
+                if (pending && pending.then) {
+                  pending.then(function () { if (mine !== token) showPoster(); }).catch(function () { if (mine === token) showPoster(); });
+                }
+              }
+              button.addEventListener("click", function () {
+                if (video.paused || video.ended) start();
+                else { token += 1; showPoster(); }
+              });
+              video.addEventListener("playing", function () {
+                if (!video.paused && !video.ended) root.classList.add("is-playing");
+              });
+              video.addEventListener("ended", function () { token += 1; showPoster(); });
+              video.removeAttribute("controls");
+              video.muted = true;
+              root.classList.add("is-ready");
+              button.hidden = false;
+              setPlaying(false);
+            }();
+          </script>
+        </figure>
       </div>
     </section>
 

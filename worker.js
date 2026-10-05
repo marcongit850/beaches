@@ -43,6 +43,13 @@ function html(body, status) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GWTFW1HGDS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GWTFW1HGDS');
+  </script>
   <title>${escapeHtml(heading)} | Walton County Beach Access</title>
 </head>
 <body>
